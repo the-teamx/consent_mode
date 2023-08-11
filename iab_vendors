@@ -1,0 +1,27 @@
+var my_iab_vendors_id = [1, 60, 755]
+var checkExist = setInterval(function() {
+   if (__tcfapi) {
+      run_vendors_check();
+      clearInterval(checkExist);
+   }
+}, 100);
+
+function run_vendors_check(){window.__tcfapi("getTCData", 2, function (tcData, success) {
+   if (success) { 
+     
+          
+          console.log(tcData.vendor.consents); console.log("-");console.log(tcData.vendor.consents[1])
+  
+           var vendors_consent = tcData.vendor.consents
+          var iab_consent = {};
+          
+
+for(i in vendors_consent)
+{  
+    if(vendors_consent[i]==true){ iab_consent[i]=vendors_consent[i] }
+    
+} window.dataLayer.push({"event":"vendors_consent","iab-consent":iab_consent,"non_iab_consent":OnetrustActiveGroups})
+          
+ 
+       }
+}, my_iab_vendors_id );}
